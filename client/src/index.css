@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+:root[data-theme="light"] {
+  --bg: 248 247 244;
+  --surface: 255 255 255;
+  --surface-muted: 243 241 236;
+  --surface-dim: 229 231 235;
+  --text: 23 23 23;
+  --text-secondary: 71 85 105;
+  --text-muted: 113 122 140;
+  --text-subtle: 148 163 184;
+  --border: 229 231 235;
+  --border-soft: 243 241 236;
+  --accent: 217 119 6;
+  --accent-light: 251 191 36;
+  --accent-subtle: 255 243 224;
+}
+
+:root[data-theme="dark"] {
+  --bg: 3 3 3;
+  --surface: 10 10 10;
+  --surface-muted: 15 15 15;
+  --surface-dim: 24 24 27;
+  --text: 245 245 245;
+  --text-secondary: 212 212 216;
+  --text-muted: 161 161 170;
+  --text-subtle: 113 113 122;
+  --border: 255 255 255;
+  --border-soft: 255 255 255;
+  --accent: 251 191 36;
+  --accent-light: 251 191 36;
+  --accent-subtle: 120 53 15;
+}
+
+/* Set dark as default */
+:root {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--text));
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  }
+  body {
+    @apply m-0 min-h-full;
+    background-color: rgb(var(--bg));
+    color: rgb(var(--text));
+  }
+  #root {
+    @apply min-h-full;
+  }
+}
+
+@layer utilities {
+  .chat-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  .chat-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .chat-scroll::-webkit-scrollbar-thumb {
+    background: rgba(var(--text-subtle), 0.5);
+    border-radius: 9999px;
+  }
+  .chat-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--text-muted), 0.5);
+  }
+}
+
+@keyframes message-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes viz-bar {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.message-in {
+  animation: message-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.viz-bar {
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+  transform-origin: bottom;
+  animation: viz-bar 0.85s ease-in-out infinite;
+  background: linear-gradient(180deg, #a78bfa 0%, #e879f9 100%);
+}
