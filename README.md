@@ -130,6 +130,43 @@ A few things worth knowing:
 - Uploaded files need proper handling and cleanup
 - Some UI parts still need a cleaner mobile experience
 
+## Deploying to Vercel
+
+### Prerequisites
+
+1. Push your code to a GitHub repository
+2. Install Vercel CLI: `npm i -g vercel`
+
+### Deploy Backend
+
+```bash
+cd server
+vercel --prod
+```
+
+Set these environment variables in Vercel dashboard:
+- `GEMINI_API_KEY`
+- `ELEVENLABS_API_KEY`
+- `TAVILY_API_KEY`
+- `CLERK_PUBLISHABLE_KEY`
+- `CLERK_SECRET_KEY`
+- `BASE_URL` = your deployed backend URL (e.g., https://your-app.vercel.app)
+
+### Deploy Frontend
+
+```bash
+cd client
+vercel --prod
+```
+
+Set these environment variables in Vercel dashboard:
+- `VITE_CLERK_PUBLISHABLE_KEY`
+- `VITE_API_URL` = your deployed backend URL
+
+### Note
+
+The backend deploys as a serverless function with file uploads stored temporarily. For persistent file storage, integrate Vercel Blob or external storage.
+
 ## What I want to improve next
 
 - Better message controls

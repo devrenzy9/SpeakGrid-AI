@@ -9,6 +9,7 @@ import { requireAuth, clerkMiddleware } from "@clerk/express";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
 const upload = multer({ dest: 'uploads/' });
 
 app.use(cors());
@@ -51,7 +52,7 @@ app.post('/api/chat', requireAuth(), upload.single('attachment'), async (req, re
         translatedReply,
         outputMode,
         targetLanguage,
-        audioUrl: `http://localhost:${PORT}/audio/${fileName}`,
+        audioUrl: `${BASE_URL}/audio/${fileName}`,
         fileName: fileName 
     });
 
