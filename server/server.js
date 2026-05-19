@@ -86,14 +86,8 @@ if (fs.existsSync(distPath)) {
   });
 }
 
-// Export the Express app for Vercel serverless functions.
-// @vercel/node will call the exported handler for each routed request.
-export default app;
-
-// Keep app.listen() for local development only
-if (process.env.NODE_ENV !== 'production') {
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => {
-    console.log(`--- SpeakGrid AI API running on http://localhost:${PORT} ---`);
-  });
-}
+// Start the server (always start on Render/local, not for Vercel serverless)
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`--- SpeakGrid AI API running on http://localhost:${PORT} ---`);
+});
