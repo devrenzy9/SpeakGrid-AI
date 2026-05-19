@@ -6,7 +6,9 @@ import multer from 'multer';
 import { askBrain, clearBrainSession, transformReplyForSpeech, translateForTts } from "./brain.js"; 
 import { speakText } from "./speak.js";
 import { requireAuth, clerkMiddleware } from "@clerk/express";
+import { fileURLToPath } from 'url';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 5000;
 const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
@@ -80,6 +82,17 @@ app.post('/api/session/delete', (req, res) => {
 
   res.json({ success: true, message: "Session and files deleted." });
 });
+
+// Serve static files from the built React app (for production on Vercel)
+const distPath = path.join(__dirname, '..', 'client', 'dist');
+if (fs.existsSync(distPath)) {
+  app.use(express.static(distPath));
+  
+  // Fallback to index.html for client-side routing
+  app.use((req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`--- SpeakGrid AI API running on http://localhost:${PORT} ---`);
