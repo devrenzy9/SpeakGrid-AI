@@ -2,6 +2,8 @@
   "name": "speakgrid-ai",
   "version": "1.0.0",
   "description": "SpeakGrid AI - Voice-first AI chat app",
+  "main": "server/server.js",
+  "type": "module",
   "private": true,
   "scripts": {
     "build": "npm run build --prefix client && npm install --prefix server",
