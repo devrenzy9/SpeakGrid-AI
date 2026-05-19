@@ -2,15 +2,11 @@
   "version": 2,
   "builds": [
     {
-      "src": "client/package.json",
-      "use": "@vercel/static-build",
+      "src": "package.json",
+      "use": "@vercel/node",
       "config": {
-        "distDir": "client/dist"
+        "includeFiles": "client/dist/**"
       }
-    },
-    {
-      "src": "server/server.js",
-      "use": "@vercel/node"
     }
   ],
   "routes": [
@@ -21,11 +17,6 @@
     {
       "src": "/audio/(.*)",
       "dest": "server/server.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/client/dist$1",
-      "status": 404
     }
   ]
 }
